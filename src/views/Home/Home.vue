@@ -6,6 +6,7 @@
       :title="hotel.name"
       :txt="hotel.description"
       :price="hotel.price"
+      :imageUrl="hotel.image"
       @openModal="handleOpenModal(hotel.id)"
       class="home-hotel-card"
     />
@@ -17,8 +18,6 @@
     >
       <template #title>{{ hotelInfo.name }}</template>
       <template #body>
-        <div class="form-modal__description">{{ hotelInfo.description }}</div>
-        <div class="form-modal__price">{{ hotelInfo.price }}₽</div>
         <VInput class="form-modal__input" v-model="valName" label="ФИО:" />
         <VInput class="form-modal__input" v-model="valEmail" label="Email:" />
         <VButton title="Отправить" :on-click="sendDataUser" />
@@ -60,7 +59,11 @@ const homeState = namespace("home");
 export default class Home extends Vue {
   @homeState.State hotelsList!: Array<Hotel>;
   @homeState.Getter getHotelById!: (id: number | null) => {};
-  @homeState.Action SetUserData!: (obj: { name: string; email: string }) => {};
+  @homeState.Action SetUserData!: (obj: {
+    name: string;
+    email: string;
+    id: null | number;
+  }) => {};
   modalIsOpen = false;
   modalConfirmIsOpen = false;
   modalErrorIsOpen = false;
@@ -78,7 +81,11 @@ export default class Home extends Vue {
     this.modalIsOpen = true;
   }
   sendDataUser() {
-    this.SetUserData({ name: this.valName, email: this.valEmail })
+    this.SetUserData({
+      name: this.valName,
+      email: this.valEmail,
+      id: this.selectHotel
+    })
       .then(() => {
         this.modalIsOpen = false;
         this.modalConfirmIsOpen = true;
@@ -97,8 +104,31 @@ export default class Home extends Vue {
   flex-wrap: wrap;
   padding: 20px;
   &-hotel-card {
+    width: calc((100% / 3) - 74px);
     margin-right: 20px;
     margin-bottom: 20px;
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+    @media (max-width: 1280px) {
+      width: calc((100% / 2) - 70px);
+      &:nth-child(3n) {
+        margin-right: 20px;
+      }
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+    }
+    @media (max-width: 800px) {
+      width: 100%;
+      margin-right: 0;
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+    }
   }
 }
 .form-modal {

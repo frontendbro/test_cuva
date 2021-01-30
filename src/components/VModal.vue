@@ -88,12 +88,14 @@ export default class Modal extends Vue {
   position: relative;
   box-sizing: border-box;
   width: 630px;
-  max-height: 99%;
   padding: 50px 40px 40px;
   overflow-y: scroll;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 0 80px rgba(0, 0, 0, 0.09);
+  @media (max-width: 800px) {
+    height: 100%;
+  }
   &-header {
     position: relative;
     display: flex;
