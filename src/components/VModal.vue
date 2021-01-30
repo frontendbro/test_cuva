@@ -90,9 +90,9 @@ export default class Modal extends Vue {
   width: 630px;
   padding: 50px 40px 40px;
   overflow-y: scroll;
-  background: #fff;
   border-radius: 8px;
   box-shadow: 0 0 80px rgba(0, 0, 0, 0.09);
+  background-color: #333333;
   @media (max-width: 800px) {
     height: 100%;
   }
@@ -102,12 +102,14 @@ export default class Modal extends Vue {
     margin-bottom: 20px;
     font-size: 20px;
     font-weight: bold;
+    color: #fff;
     &__close {
       position: absolute;
       top: 0;
       right: 0;
       z-index: 3;
       cursor: pointer;
+      fill: #fff;
     }
   }
   &-body {

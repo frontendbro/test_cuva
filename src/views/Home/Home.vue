@@ -27,14 +27,14 @@
     <VModal :is-open="modalConfirmIsOpen" @close="modalConfirmIsOpen = false">
       <template #title>Данные успешно отправлены</template>
       <template #body>
-        <div>Отель забронирован!</div>
+        <div class="modal-txt">Отель забронирован!</div>
       </template>
     </VModal>
 
     <VModal :is-open="modalErrorIsOpen" @close="modalErrorIsOpen = false">
       <template #title>Ошибка отправки данных</template>
       <template #body>
-        <div>Возникла ошибка при отправке данных!</div>
+        <div class="modal-txt">Возникла ошибка при отправке данных!</div>
       </template>
     </VModal>
   </div>
@@ -103,6 +103,7 @@ export default class Home extends Vue {
   display: flex;
   flex-wrap: wrap;
   padding: 20px;
+  background-color: #333333;
   &-hotel-card {
     width: calc((100% / 3) - 74px);
     margin-right: 20px;
@@ -141,5 +142,8 @@ export default class Home extends Vue {
   &__input {
     margin-bottom: 20px;
   }
+}
+.modal-txt {
+  color: #fff;
 }
 </style>
