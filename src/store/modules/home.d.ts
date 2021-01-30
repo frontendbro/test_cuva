@@ -1,4 +1,5 @@
 export interface HomeState {
+  setDataLoading: boolean;
   hotelsList: Array<Hotel>;
 }
 

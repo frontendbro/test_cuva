@@ -13,15 +13,29 @@
     <VModal
       :is-open="modalIsOpen"
       @close="modalIsOpen = false"
-      title="Бронирование"
+      class="form-modal"
     >
       <template #title>{{ hotelInfo.name }}</template>
       <template #body>
-        <div>{{ hotelInfo.description }}</div>
-        <div>{{ hotelInfo.price }}₽</div>
-        <VInput v-model="valName" label="ФИО:" />
-        <VInput v-model="valEmail" label="Email:" />
+        <div class="form-modal__description">{{ hotelInfo.description }}</div>
+        <div class="form-modal__price">{{ hotelInfo.price }}₽</div>
+        <VInput class="form-modal__input" v-model="valName" label="ФИО:" />
+        <VInput class="form-modal__input" v-model="valEmail" label="Email:" />
         <VButton title="Отправить" :on-click="sendDataUser" />
+      </template>
+    </VModal>
+
+    <VModal :is-open="modalConfirmIsOpen" @close="modalConfirmIsOpen = false">
+      <template #title>Данные успешно отправлены</template>
+      <template #body>
+        <div>Отель забронирован!</div>
+      </template>
+    </VModal>
+
+    <VModal :is-open="modalErrorIsOpen" @close="modalErrorIsOpen = false">
+      <template #title>Ошибка отправки данных</template>
+      <template #body>
+        <div>Возникла ошибка при отправке данных!</div>
       </template>
     </VModal>
   </div>
@@ -46,8 +60,10 @@ const homeState = namespace("home");
 export default class Home extends Vue {
   @homeState.State hotelsList!: Array<Hotel>;
   @homeState.Getter getHotelById!: (id: number | null) => {};
-  @homeState.Action SetUserData!: (name: string, email: string) => {};
+  @homeState.Action SetUserData!: ({ name: string, email: string }) => {};
   modalIsOpen = false;
+  modalConfirmIsOpen = false;
+  modalErrorIsOpen = false;
   selectHotel: null | number = null;
 
   valName = "";
@@ -62,7 +78,15 @@ export default class Home extends Vue {
     this.modalIsOpen = true;
   }
   sendDataUser() {
-    this.SetUserData({ name: this.valName, email: this.valEmail });
+    this.SetUserData({ name: this.valName, email: this.valEmail })
+      .then(() => {
+        this.modalIsOpen = false;
+        this.modalConfirmIsOpen = true;
+      })
+      .catch(() => {
+        this.modalIsOpen = false;
+        this.modalErrorIsOpen = true;
+      });
   }
 }
 </script>
@@ -74,6 +98,17 @@ export default class Home extends Vue {
   padding: 20px;
   &-hotel-card {
     margin-right: 20px;
+    margin-bottom: 20px;
+  }
+}
+.form-modal {
+  &__price {
+    margin-bottom: 20px;
+  }
+  &__description {
+    margin-bottom: 20px;
+  }
+  &__input {
     margin-bottom: 20px;
   }
 }

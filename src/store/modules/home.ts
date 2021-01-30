@@ -4,6 +4,7 @@ import { RootState } from "@/store";
 import { HomeState } from "@/store/modules/home.d";
 
 const state: HomeState = {
+  setDataLoading: false,
   hotelsList: [
     {
       name: "Отель 1",
@@ -81,7 +82,11 @@ const actions: ActionTree<HomeState, RootState> = {
   }
 };
 
-const mutations: MutationTree<HomeState> = {};
+const mutations: MutationTree<HomeState> = {
+  SET_USER_DATA_LOADING: (state, payload) => {
+    state.setDataLoading = payload;
+  }
+};
 
 export const home: Module<HomeState, RootState> = {
   namespaced: true,

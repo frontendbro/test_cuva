@@ -41,7 +41,6 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
   components: { Icon }
 })
 export default class Modal extends Vue {
-  @Prop() title!: string;
   @Prop() description!: string;
   @Prop() isOpen!: boolean;
   @Prop({ default: true }) isClickAwayClose!: boolean;
