@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ActionTree, GetterTree, Module, MutationTree } from "vuex";
 import { RootState } from "@/store";
 import { HomeState } from "@/store/modules/home.d";
@@ -63,9 +64,21 @@ const getters: GetterTree<HomeState, RootState> = {
 };
 
 const actions: ActionTree<HomeState, RootState> = {
-  // SetBooking: ({ commit }, payload) => {
-  //
-  // }
+  SetUserData: ({ commit }, payload) => {
+    commit("SET_USER_DATA_LOADING", true);
+
+    return axios
+      .post("/dataUser", payload)
+      .then(({ data }) => {
+        return data;
+      })
+      .catch(e => {
+        throw e;
+      })
+      .finally(() => {
+        commit("SET_USER_DATA_LOADING", false);
+      });
+  }
 };
 
 const mutations: MutationTree<HomeState> = {};
