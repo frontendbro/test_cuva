@@ -67,7 +67,6 @@ const getters: GetterTree<HomeState, RootState> = {
 const actions: ActionTree<HomeState, RootState> = {
   SetUserData: ({ commit }, payload) => {
     commit("SET_USER_DATA_LOADING", true);
-
     return axios
       .post("/dataUser", payload)
       .then(({ data }) => {

@@ -32,6 +32,10 @@ export default class VInput extends Vue {
   @Prop() value!: string;
   @Prop() label!: string;
 
+  $refs!: {
+    input: HTMLInputElement;
+  };
+
   get valueInput(): string {
     return this.value;
   }
@@ -41,7 +45,8 @@ export default class VInput extends Vue {
 
   get inputListeners() {
     return Object.assign({}, this.$listeners, {
-      input: event => this.$emit("input", event.target.value)
+      input: (event: InputEvent) =>
+        this.$emit("input", event.target && event.target.value)
     });
   }
 
@@ -95,5 +100,4 @@ export default class VInput extends Vue {
   color: #606060;
   font-size: 12px;
 }
-
 </style>

@@ -60,7 +60,7 @@ const homeState = namespace("home");
 export default class Home extends Vue {
   @homeState.State hotelsList!: Array<Hotel>;
   @homeState.Getter getHotelById!: (id: number | null) => {};
-  @homeState.Action SetUserData!: ({ name: string, email: string }) => {};
+  @homeState.Action SetUserData!: (obj: { name: string; email: string }) => {};
   modalIsOpen = false;
   modalConfirmIsOpen = false;
   modalErrorIsOpen = false;
