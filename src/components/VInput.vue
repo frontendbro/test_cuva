@@ -43,13 +43,6 @@ export default class VInput extends Vue {
     this.$emit("input", value);
   }
 
-  get inputListeners() {
-    return Object.assign({}, this.$listeners, {
-      input: (event: InputEvent) =>
-        this.$emit("input", event.target && event.target.value)
-    });
-  }
-
   focusInput() {
     this.$refs.input.focus();
   }

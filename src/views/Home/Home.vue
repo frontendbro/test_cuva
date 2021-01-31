@@ -63,7 +63,7 @@ export default class Home extends Vue {
     name: string;
     email: string;
     id: null | number;
-  }) => {};
+  }) => Promise<{}>;
   modalIsOpen = false;
   modalConfirmIsOpen = false;
   modalErrorIsOpen = false;
